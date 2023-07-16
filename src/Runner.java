@@ -17,7 +17,7 @@ public class Runner {
             System.out.print("Choice: ");
             try { // handling IO Exception
                 return Integer.parseInt(input.readLine());
-            } catch (IOException e) {
+            } catch (Exception e) {
                 System.out.println("Something wrong with the added information.");
             }
         }
@@ -32,7 +32,13 @@ public class Runner {
                 System.out.print("Importance Level (1-5): ");
                 int importanceLevel = Integer.parseInt(input.readLine());
 
-                return new Question(url, importanceLevel);
+                System.out.print("Solved(yes/[no]): ");
+                String solved = input.readLine();
+
+                Question question = new Question(url, importanceLevel);
+                question.setSolved(solved.equals("yes"));
+
+                return question;
             } catch (Exception e) {
                 System.out.println("Something wrong with the added information.");
             }
@@ -50,7 +56,11 @@ public class Runner {
                 } else {
                     System.out.println("\n======== Questions List =========");
                     for (int i = 0; i < questions.size(); ++i) {
-                        System.out.println((i + 1) + " - " + questions.get(i).url);
+                        System.out.print((i + 1) + " - " + questions.get(i).url);
+                        if (questions.get(i).getSolved()) {
+                            System.out.print(" ✔");
+                        }
+                        System.out.println();
                     }
                 }
             } else if (choice == 2) {

@@ -7,7 +7,21 @@ public class Question implements Comparable<Question> {
     @JsonProperty("importance_level")
     public int importanceLevel;
 
+    private Boolean solved;
+
+    @JsonProperty("solved")
+    public Boolean getSolved() {
+        return solved;
+    }
+
+    @JsonProperty("solved")
+    public void setSolved(Boolean solved) {
+        this.solved = solved;
+    }
+
     public Question() {
+        this.importanceLevel = 3;
+        this.solved = false;
     }
 
     public Question(String url, int importanceLevel) {
