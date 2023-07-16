@@ -31,10 +31,11 @@ public class QuestionStore {
 
     private List<Question> readQuestionsFromFile() {
         try {
-            return mapper.readValue(new File(DATA_STORE_FILE), new TypeReference<>() {});
+            File file = new File(DATA_STORE_FILE);
+            if (!file.exists()) file.createNewFile();
+            return mapper.readValue(file, new TypeReference<>() {});
         } catch (Exception e) {
             System.out.println("Failed to read from file - initializing as empty list");
-            e.printStackTrace();
             return new ArrayList<>();
         }
     }
@@ -45,7 +46,6 @@ public class QuestionStore {
             storeQuestionsInFile();
         } catch (IOException e) {
             System.out.println("Failed to write into the file: " + DATA_STORE_FILE);
-            e.printStackTrace();
         }
     }
 }
