@@ -23,11 +23,16 @@ public class Runner {
         }
     }
 
-    public static String inputQuestionURL() {
+    public static Question inputQuestion() {
         while (true) { // keep asking till valid input is added.
-            System.out.print("\nURL: ");
             try { // handling IO Exception
-                return input.readLine();
+                System.out.print("\nURL: ");
+                String url = input.readLine();
+
+                System.out.print("Importance Level (1-5): ");
+                int importanceLevel = Integer.parseInt(input.readLine());
+
+                return new Question(url, importanceLevel);
             } catch (Exception e) {
                 System.out.println("Something wrong with the added information.");
             }
@@ -49,8 +54,8 @@ public class Runner {
                     }
                 }
             } else if (choice == 2) {
-                String url = inputQuestionURL();
-                store.addNewQuestion(new Question(url));
+                Question question = inputQuestion();
+                store.addNewQuestion(question);
             }
         } while (choice == 1 || choice == 2);
     }
